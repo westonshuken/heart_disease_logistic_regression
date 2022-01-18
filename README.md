@@ -37,13 +37,35 @@ View the data
 ```
 df.head()
 ```
-image
+![df](images/df_heart.png)
 
 Check the datatypes of each column and check for null values
 ```
 df.info()
+
+Output:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 303 entries, 0 to 302
+Data columns (total 14 columns):
+ #   Column    Non-Null Count  Dtype  
+---  ------    --------------  -----  
+ 0   age       303 non-null    int64  
+ 1   sex       303 non-null    int64  
+ 2   cp        303 non-null    int64  
+ 3   trestbps  303 non-null    int64  
+ 4   chol      303 non-null    int64  
+ 5   fbs       303 non-null    int64  
+ 6   restecg   303 non-null    int64  
+ 7   thalach   303 non-null    int64  
+ 8   exang     303 non-null    int64  
+ 9   oldpeak   303 non-null    float64
+ 10  slope     303 non-null    int64  
+ 11  ca        303 non-null    int64  
+ 12  thal      303 non-null    int64  
+ 13  target    303 non-null    int64  
+dtypes: float64(1), int64(13)
+memory usage: 33.3 KB
 ```
-image
 
 Fortunately, there are no null values present and the categorical variables like *sex* have already been encoded
 
@@ -51,14 +73,19 @@ Check the decsriptive statistics
 ```
 round(df.describe(), 4)
 ```
-image
+![describe](images/describe_heart.png)
+
 With my lack of domain knowledge, I cannot tell too much here. However, I can see that there are binary values for the target, age ranges from 29 to 77, and there are more 1's than 0's in the target.
 
 Taking a closer look at the target class balance
 ```
 df['target'].value_counts()
+
+Output: 
+1    165
+0    138
+Name: target, dtype: int64
 ```
-image
 
 It seems that the target class is quite balanced here, so not too much to worry about.
 
@@ -150,7 +177,7 @@ Code:
 plot_confusion_matrix(clf, X=X_test, y_true=y_test, display_labels=['No Disease', 'Disease'])
 plt.grid(False);
 ```
-image
+![Confusion Matrix](images/confusion_matrix.png)
 
 We can easily cross check our accuracy measure here: (true neg + true pos) / total = 62/76 = 81%
 
@@ -242,6 +269,7 @@ plt.show()
 Output: 
 AUC: 0.9187400318979266
 ```
+![ROC train](images/ROC train.png)
 ```
 # Seaborn Style
 sns.set_style('white')
@@ -266,6 +294,7 @@ plt.show()
 Output: 
 AUC: 0.9154334038054969
 ```
+![ROC test](images/ROC\test.png)
 
 ## Step 10
 ### Make the model better
