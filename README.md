@@ -269,7 +269,7 @@ plt.show()
 Output: 
 AUC: 0.9187400318979266
 ```
-![ROC train](images/ROC train.png)
+![ROC train](images/ROC_train.png)
 ```
 # Seaborn Style
 sns.set_style('white')
@@ -294,7 +294,7 @@ plt.show()
 Output: 
 AUC: 0.9154334038054969
 ```
-![ROC test](images/ROC\test.png)
+![ROC test](images/ROC_test.png)
 
 ## Step 10
 ### Make the model better
