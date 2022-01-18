@@ -123,6 +123,7 @@ Code:
 print(f"Train Score: {clf.score(X_train, y_train)}")
 print(f"Test Score: {clf.score(X_test, y_test)}")
 
+Output:
 Train Score: 0.8722466960352423
 Test Score: 0.8157894736842105
 ```
@@ -133,6 +134,7 @@ Code:
 print(f"Train LogLoss: {log_loss(y_train, clf.predict_proba(X_train))}")
 print(f"Test LogLoss: {log_loss(y_test, clf.predict_proba(X_test))}")
 
+Output:
 Train LogLoss: 0.35896912360998906
 Test LogLoss: 0.36611952610146714
 ```
@@ -177,6 +179,8 @@ y_hat = clf.predict(X_test)
 
 # Print metrics: recall, precision and f1
 print(classification_report(y_test, y_hat, output_dict=False))
+
+Output:
 
               precision    recall  f1-score   support
 
@@ -234,6 +238,9 @@ plt.title('ROC Curve for Training Set')
 plt.legend(loc='lower right')
 print('AUC: {}'.format(auc(train_fpr, train_tpr)))
 plt.show()
+
+Output: 
+AUC: 0.9187400318979266
 ```
 ```
 # Seaborn Style
@@ -255,7 +262,14 @@ plt.title('ROC Curve for Test Set')
 plt.legend(loc='lower right')
 print('AUC: {}'.format(auc(test_fpr, test_tpr)))
 plt.show()
+
+Output: 
+AUC: 0.9154334038054969
 ```
 
 ## Step 10
 ### Make the model better
+
+
+
+#### Credits & Thanks: Flatiron School, Python, Scikit-Learn, Pandas, Numpy, Matplotlib, Seaborn, Kaggle, Stackoverflow, & Wikipedia.
