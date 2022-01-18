@@ -1,11 +1,11 @@
 # Making Predictions with Logistic Regression ([Scikit-Learn](https://scikit-learn.org/stable/))
 
 
-In this tutorial, I will be sharing how to make predictions using logistic regression. The purpose of using logistic regression really begins with a question, that being a yes/no, true/false, or other binary question. In better terms, logistic regression is used for a binary classification problem and is considered to be a supervised machine learning/statistical model. 
+In this tutorial, I will be sharing how to make predictions using logistic regression. The purpose of using logistic regression really begins with a question, that being a yes/no, true/false, or other binary question. In better terms, logistic regression is used for a binary classification problem and is considered to be a supervised machine learning/statistical model.
 
-An example of a scenario where logistic regression would be helpful could be when predicting if a patient has a disease or not, if an email is spam or not spam, or if a transaction is fraudulent or not fraudulent. 
+An example of a scenario where logistic regression would be helpful could be when predicting if a patient has a disease or not, if an email is spam or not spam, or if a transaction is fraudulent or not fraudulent.
 
-To reiterate, logistic regression should not be used as a model to predict anything, but rather is a model used when a prediction is not continuous. For the sake of this tutorial, we will look at a binary classification problem, but logistic regression can be used to predict multiple classes of predictors. 
+To reiterate, logistic regression should not be used as a model to predict anything, but rather is a model used when a prediction is not continuous. For the sake of this tutorial, we will look at a binary classification problem, but logistic regression can be used to predict multiple classes of predictors.
 
 ## Step 1
 ### Find the data and state the target
@@ -18,14 +18,26 @@ We will be using a dataset called *[Heart Disease UCI](https://www.kaggle.com/ro
 - University Hospital, Basel, Switzerland: Matthias Pfisterer, M.D.
 - V.A. Medical Center, Long Beach and Cleveland Clinic Foundation: Robert Detrano, M.D., Ph.D.
 
-The dataset had 13 predictor columns with information like age, sex, chest pain, cholesterol, and other heart-related metrics. The target column is binary (0,1) with 0 meaning no heart disease present and 1 meaning heart disease present. Our goal is to predict if someone has heart disease or not. To begin, let’s take a look at the dataset. 
+The dataset had 13 predictor columns with information like age, sex, chest pain, cholesterol, and other heart-related metrics. The target column is binary (0,1) with 0 meaning no heart disease present and 1 meaning heart disease present. Our goal is to predict if someone has heart disease or not. To begin, let’s take a look at the dataset.
 
 ## Step 2
 ### Do some exploratory data analysis
 
-Import Pandas
+First, import all needed packages, modules, and libraries 
 ```
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline
+
+
+from sklearn.model_selection import train_test_split, cross_val_score, cross_validate
+from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import plot_confusion_matrix, classification_report, log_loss, \
+roc_curve, auc, precision_recall_curve
 ```
 
 Load the data
@@ -298,7 +310,8 @@ AUC: 0.9154334038054969
 
 ## Step 10
 ### Make the model better
-
+Given all of these metrics, we might want to consider what we want to optimize for in the model. One thing that seems to be a good idea would be to improve on our recall score by adjusting the threshold in which the model predicts a 1. This is because the cost of false negatives is very detrimental to a person who really does have heart disease. Further, the model would need to be improved overall. Using more data, performing cross-validation, adjusting regularization parameters would be a good place to start.
+The purpose of this tutorial was for a beginner (like myself) to give logistic regression and a simple classification problem a try. 
 
 
 #### Credits & Thanks: Flatiron School, Python, Scikit-Learn, Pandas, Numpy, Matplotlib, Seaborn, Kaggle, Stackoverflow, & Wikipedia.
