@@ -159,3 +159,103 @@ This situation brings us to our next set of metrics: recall, precision, and F1-s
 
 ## Step 8
 ### Precision, Recall, & F1-score
+
+Scikit-Learn has a very handy function for getting all of these scores, it is called the `classification_report`. 
+
+Precision will tell how well the model identified the true data points (true postives / (true positives + false positives). A higher score is better!
+
+Recall will tell often the model fails to predict the true positives (true postives / (true positives + false negatives). A higher score is better!
+
+F1-Score will tell us the the "Harmonic Mean of Precision and Recall", which informs if both recall and precisino are high. A higher score is better!
+
+*Let's see our results*
+
+Code:
+```
+# creating an object of predictors from the test data
+y_hat = clf.predict(X_test)
+
+# Print metrics: recall, precision and f1
+print(classification_report(y_test, y_hat, output_dict=False))
+
+              precision    recall  f1-score   support
+
+           0       0.87      0.79      0.83        43
+           1       0.76      0.85      0.80        33
+
+    accuracy                           0.82        76
+   macro avg       0.81      0.82      0.81        76
+weighted avg       0.82      0.82      0.82        76
+```
+
+Well, precision,r ecall and f1-score are relatively high, but in the context of the medical industry, I am sure this would not be sufficient enough for a diagnosis.
+
+## Step 9
+### ROC curve and AUC
+
+The last metrics we will analyze are the ROC and AUC.
+
+The Receiver Operator Characteristic (ROC) curve "illustrates the true positive rate against the false positive rate of our classifier" (Flatiron).
+
+The Area Under the Curve (AUC) gives us a metric to compare ROC curves. It tells us literally how much area is under the curve. The lowerst score being .5 and the highest being 1. 
+
+Let's see how our model performs on the train and the test set.
+
+Code:
+```
+# Calculate the probability scores of each point in the training set
+y_train_score = clf.predict_proba(X_train)[:,1]
+
+# Calculate the fpr, tpr, and thresholds for the training set
+train_fpr, train_tpr, thresholds = roc_curve(np.array(y_train), np.array(y_train_score))
+
+# Calculate the probability scores of each point in the test set
+y_score = clf.predict_proba(X_test)[:,1]
+
+# Calculate the fpr, tpr, and thresholds for the test set
+test_fpr, test_tpr, thresholds = roc_curve(y_test, y_score)
+```
+```
+# Seaborn Style
+sns.set_style('white')
+
+# Train ROC Curve
+plt.figure(figsize=(10, 8))
+plt.plot(train_fpr, train_tpr, color='red',
+         lw=3, label='ROC')
+
+plt.xlim([-0.01, 1.0])
+plt.ylim([-0.01, 1.05])
+plt.yticks([i/20.0 for i in range(21)])
+plt.xticks([i/20.0 for i in range(21)])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve for Training Set')
+plt.legend(loc='lower right')
+print('AUC: {}'.format(auc(train_fpr, train_tpr)))
+plt.show()
+```
+```
+# Seaborn Style
+sns.set_style('white')
+
+# Test ROC Curve
+plt.figure(figsize=(10, 8))
+
+plt.plot(test_fpr, test_tpr, color='red',
+         lw=3, label='ROC')
+
+plt.xlim([-0.01, 1.0])
+plt.ylim([-0.01, 1.05])
+plt.yticks([i/20.0 for i in range(21)])
+plt.xticks([i/20.0 for i in range(21)])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve for Test Set')
+plt.legend(loc='lower right')
+print('AUC: {}'.format(auc(test_fpr, test_tpr)))
+plt.show()
+```
+
+## Step 10
+### Make the model better
